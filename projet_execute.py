@@ -133,6 +133,10 @@ while True:
         base.server_add(new_server)
 
         print("Serveur ajoute...")
+        print("SI VOUS VOULEZ EXPORTER LES DONNEES DANS UN FICHIER EXCEL APRES AVOIR AJOUTE UN NOUVEAU SERVEUR,\n"
+              "VOUS DEVEZ TOUT D'ABORD QUITTER LE PROGRAMME EN APPUYANT 'q' PUIS LE RELANCER.")
+
+
 
 
     elif (operation == "4"):
@@ -146,18 +150,26 @@ while True:
             print("Serveur supprime...")
 
     elif (operation == "5"):
-        base.count_servers()
-        style_excel()
-        print("Fichier enregistre.")
-        time.sleep(5)
-        print("Fichier se trouve dans: {}".format(os.getcwd()))
-        filepath = "graphique.png"
 
-        if os.path.exists(filepath):
-            os.remove(filepath)
-        else:
+        try:
+            base.count_servers()
+            style_excel()
+            print("Fichier enregistre.")
+            time.sleep(5)
+            print("Fichier se trouve dans: {}".format(os.getcwd()))
+            filepath = "graphique.png"
+            time.sleep(3)
+
+
+            if os.path.exists(filepath):
+                os.remove(filepath)
+            else:
+                exit(0)
+            break
+        except AttributeError:
+            print("VOUS VENEZ D'AJOUTER UN NOUVEAU SERVEUR LES DONNEES SERONT ENREGISTREES APRES AVOIR QUITTE LE LOGICIEL\n"
+                  "VEUILLEZ RELANCER LE LOGICIEL")
             exit(0)
-        break
 
     elif (operation == "7"):
         base.count_servers()
