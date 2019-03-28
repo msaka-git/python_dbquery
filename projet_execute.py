@@ -53,6 +53,7 @@ def style_excel():
     worksheet1.write('D1', 'PHY/VM', style_head)
     worksheet1.write('E1', 'Ip', style_head)
     worksheet1.write('F1', 'Nat', style_head)
+    worksheet1.write('G1', 'Datastore', style_head)
 
     conn = sqlite3.connect('mydb')
     c = conn.cursor()
@@ -126,8 +127,10 @@ while True:
         type = type.upper()
         ip = input("IP: ")
         nat = input("Nat: ")
+        datastore = input("Datastore: ")
+        datastore = datastore.upper()
 
-        new_server = server(hostname, os, scope, type, ip, nat)
+        new_server = server(hostname, os, scope, type, ip, nat, datastore)
         print("Ajout du serveur en cours...")
         time.sleep(2)
         base.server_add(new_server)
@@ -184,9 +187,10 @@ while True:
               "4- Modifier Type\n"
               "5- Modifier Ip\n"
               "6- Modifier Nat\n"
+              "7- Modifier Datastore\n"
               "*****")
 
-        reponse_s = int(input("Faites votre choix (1/2/3/4/5/6): "))
+        reponse_s = int(input("Faites votre choix (1/2/3/4/5/6/7): "))
 
         if (reponse_s == 1):
             hostname = input("Sur quel serveur voulez-vous modifier Hostname: ")
@@ -236,6 +240,14 @@ while True:
             time.sleep(2)
             base.nat_change(hostname)
             print("NAT a ete modifie.")
+
+        elif (reponse_s == 7):
+            hostname = input("Sur quel serveur voulez-vous modifier DS: ")
+            hostname = hostname.upper()
+            print("Modification en cours...")
+            time.sleep(2)
+            base.ds_change(hostname)
+            print("DS a ete modifie.")
 
 
     else:
