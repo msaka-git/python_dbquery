@@ -1,1 +1,2 @@
 coding another script which will parse data from excel file and update database regularly.
+primary key must be set to hostname, nat and ip columns
