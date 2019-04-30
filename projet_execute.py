@@ -133,12 +133,15 @@ while True:
         new_server = server(hostname, os, scope, type, ip, nat, datastore)
         print("Ajout du serveur en cours...")
         time.sleep(2)
-        base.server_add(new_server)
+        if len(hostname or ip or nat) >= 1:
+            print("Serveur ou ip ou nat existent")
+            continue
+        else:
+            base.server_add(new_server)
 
-        print("Serveur ajoute...")
-        print("SI VOUS VOULEZ EXPORTER LES DONNEES DANS UN FICHIER EXCEL APRES AVOIR AJOUTE UN NOUVEAU SERVEUR,\n"
-              "VOUS DEVEZ TOUT D'ABORD QUITTER LE PROGRAMME EN APPUYANT 'q' PUIS LE RELANCER.")
-
+            print("Serveur ajoute...")
+            print("SI VOUS VOULEZ EXPORTER LES DONNEES DANS UN FICHIER EXCEL APRES AVOIR AJOUTE UN NOUVEAU SERVEUR,\n"
+                "VOUS DEVEZ TOUT D'ABORD QUITTER LE PROGRAMME EN APPUYANT 'q' PUIS LE RELANCER.")
 
 
 

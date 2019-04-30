@@ -25,9 +25,9 @@ class base():
         self.connection_set()
 
     def connection_set(self):
-        self.connection = sqlite3.connect("mydb")
+        self.connection = sqlite3.connect("mydb.db")
         self.cursor = self.connection.cursor()
-        query = "create table if not exists servers (hostname TEXT,os TEXT,scope TEXT, type TEXT,ip INT, nat INT, datastore TEXT)"
+        query = "create table if not exists servers (hostname TEXT UNIQUE,os TEXT,scope TEXT, type TEXT,ip INT UNIQUE, nat INT UNIQUE, datastore TEXT)"
         self.cursor.execute(query)
         self.connection.commit()
 
