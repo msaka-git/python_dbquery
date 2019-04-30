@@ -55,7 +55,7 @@ def style_excel():
     worksheet1.write('F1', 'Nat', style_head)
     worksheet1.write('G1', 'Datastore', style_head)
 
-    conn = sqlite3.connect('mydb')
+    conn = sqlite3.connect('mydb.db')
     c = conn.cursor()
     c.execute("select * from servers")
     mysel = c.execute("select * from servers ")

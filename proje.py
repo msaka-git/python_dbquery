@@ -218,18 +218,24 @@ class base():
         rowcount3=rowcount3
         print("HUO Servers: ", rowcount3)
 
-        query4 = "select count (type) from servers where type='VM'"
+        query4="select count (scope) from servers where scope='infra IBM'"
         self.cursor.execute(query4)
-        rowcount4 = self.cursor.fetchone()[0]
+        rowcount4=self.cursor.fetchone()[0]
+        rowcount4=rowcount4
+        print("Infra Servers: ", rowcount4)
 
-        phy = int(rowcount - rowcount4)  # PHY servers calcul#
-        print("VM Servers: ", rowcount4)
+        query5 = "select count (type) from servers where type='VM'"
+        self.cursor.execute(query5)
+        rowcount5 = self.cursor.fetchone()[0]
+
+        phy = int(rowcount - rowcount5)  # PHY servers calcul#
+        print("VM Servers: ", rowcount5)
         print("PHY servers: ", phy)
         self.connection.commit()
 
         labels = (
-            'UO={}'.format(rowcount2), 'HUO={}'.format(rowcount3), 'VM={}'.format(rowcount4), 'PHY={}'.format(phy))
-        sizes = [rowcount2 / 100, rowcount3 / 100, rowcount4 / 100, phy / 100]
+            'UO={}'.format(rowcount2), 'HUO={}'.format(rowcount3), 'Infra={}'.format(rowcount4), 'VM={}'.format(rowcount5),'PHY={}'.format(phy))
+        sizes = [rowcount2 / 100, rowcount3 / 100, rowcount4 / 100, rowcount5 / 100, phy / 100]
         colors = ['yellow', 'lightblue', 'green', 'red']
         plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%')
         plt.title("Au total: {}".format(rowcount))
