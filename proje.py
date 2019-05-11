@@ -231,12 +231,18 @@ class base():
         phy = int(rowcount - rowcount5)  # PHY servers calcul#
         print("VM Servers: ", rowcount5)
         print("PHY servers: ", phy)
+
+        query6 = "select count(scope) from servers where scope ='HUO => UO' or scope = 'UO => HUO'"
+        self.cursor.execute(query6)
+        rowcount6=self.cursor.fetchone()[0]
+        print("Ces serveurs vont changer de scope:", rowcount6)
+
         self.connection.commit()
 
         labels = (
-            'UO={}'.format(rowcount2), 'HUO={}'.format(rowcount3), 'Infra={}'.format(rowcount4), 'VM={}'.format(rowcount5),'PHY={}'.format(phy))
-        sizes = [rowcount2 / 100, rowcount3 / 100, rowcount4 / 100, rowcount5 / 100, phy / 100]
-        colors = ['yellow', 'lightblue', 'green', 'red']
+            'UO={}'.format(rowcount2), 'HUO={}'.format(rowcount3), 'Infra={}'.format(rowcount4), 'VM={}'.format(rowcount5),'PHY={}'.format(phy),'HUO/UO={}'.format(rowcount6))
+        sizes = [rowcount2 / 100, rowcount3 / 100, rowcount4 / 100, rowcount5 / 100, phy / 100, rowcount6 / 100]
+        colors = ['yellow', 'lightblue', 'green', 'red', 'grey', 'blue']
         plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%')
         plt.title("Au total: {}".format(rowcount))
         plt.suptitle("Repartition des Serveurs")
