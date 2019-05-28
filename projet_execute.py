@@ -2,30 +2,32 @@ from proje import *
 from xlsxwriter.workbook import Workbook
 import os,sqlite3
 
-print("""**************************************
+def menu():
 
-BIENVENUE A L'OUTIL D'INTERROGATION SERVEURS
+    print("""**************************************
 
-Operations;
+    BIENVENUE A L'OUTIL D'INTERROGATION SERVEURS
 
-1-Lister les serveurs
+    Operations;
 
-2-Interroger un serveur
+    1-Lister les serveurs
 
-3-Ajoutez serveur
+    2-Interroger un serveur
 
-4-Supprimer serveur
+    3-Ajoutez serveur
 
-5-Extraire dans Excel
+    4-Supprimer serveur
 
-6-Mettre a jour le serveur
+    5-Extraire dans Excel
 
-7-Resume
+    6-Mettre a jour le serveur
+
+    7-Resume
 
 
-pour quitter appuyez sur 'q'.
+    pour quitter appuyez sur 'q'.
 
-**************************************""")
+    **************************************""")
 
 base = base()
 
@@ -33,7 +35,7 @@ base = base()
 def style_excel():
     workbook = Workbook('inventaire.xlsx')
     worksheet1 = workbook.add_worksheet("Liste des Serveurs")
-    worksheet1.set_column('A:F', 30)
+    worksheet1.set_column('A:H', 30)
     bold = workbook.add_format({'bold': True})
 
     style_head = workbook.add_format(
@@ -54,6 +56,7 @@ def style_excel():
     worksheet1.write('E1', 'Ip', style_head)
     worksheet1.write('F1', 'Nat', style_head)
     worksheet1.write('G1', 'Datastore', style_head)
+    worksheet1.write('H1', 'Application', style_head)
 
     conn = sqlite3.connect('mydb.db')
     c = conn.cursor()
@@ -99,6 +102,7 @@ def style_excel():
 
 
 while True:
+    menu()
     operation = input("Choissez l'operation: ")
 
     if (operation == "q"):
@@ -129,8 +133,10 @@ while True:
         nat = input("Nat: ")
         datastore = input("Datastore: ")
         datastore = datastore.upper()
+        application = input("Application: ")
+        application = application.upper()
 
-        new_server = server(hostname, os, scope, type, ip, nat, datastore)
+        new_server = server(hostname, os, scope, type, ip, nat, datastore, application)
         print("Ajout du serveur en cours...")
         time.sleep(2)
         host=base.server_query(hostname)

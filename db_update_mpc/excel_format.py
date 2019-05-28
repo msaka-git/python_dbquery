@@ -1,15 +1,15 @@
 import pandas as pd
 import xlrd
 import csv
-
+import unidecode
 import xlsxwriter
 import xlwt
 from xlsxwriter.workbook import Workbook
-import openpyxl
+import openpyxl,os
 
+#encoding_override='cp1252'
 
-
-workbook = xlrd.open_workbook('MPW_inventaire.xlsx', encoding_override='cp1252', on_demand=True)
+workbook = xlrd.open_workbook('MPW_inventaire.xlsx', encoding_override='latin1', on_demand=True)
 worksheet = workbook.sheet_by_index(0)
 
 #print(worksheet.cell(0,0).value)
@@ -20,6 +20,7 @@ serverlar_type = worksheet.col_values(2,1,None)
 serverlar_ip = worksheet.col_values(14,1,None)
 serverlar_nat = worksheet.col_values(16,1,None)
 serverlar_location = worksheet.col_values(27,1,None)
+serverlar_appli = worksheet.col_values(18,1,None)
 
 #print(serverlar)
 
@@ -110,11 +111,19 @@ def extract():
         worksheet1.write(row, column, item)
         row += 1
 
+    row = 1
+    column = 7
+    content = serverlar_appli
+    worksheet1.write('H1', 'application')
+
+    for item in content:
+        worksheet1.write(row, column, item)
+        row += 1
 
 
 
     workbook.close()
-extract()
+
 
 
 
@@ -122,6 +131,6 @@ extract()
 def to_csv():
     data_xls = pd.read_excel('servers.xlsx', 'Inventaire', index_col=None)
     data_xls.to_csv('servers.csv', encoding='utf-8-sig',index=None)
-to_csv()
+
 
 

@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 class server():
-    def __init__(self, hostname, os, scope, type, ip, nat, datastore):
+    def __init__(self, hostname, os, scope, type, ip, nat, datastore, application):
         self.hostname = hostname
         self.os = os
         self.scope = scope
@@ -13,10 +13,11 @@ class server():
         self.ip = ip
         self.nat = nat
         self.datastore = datastore
+        self.application = application
 
     def __str__(self):
-        return "Hostname: {}\nOS: {}\nScope: {}\nType: {}\nIP: {}\nNat: {}\nDatasotre: {}".format(self.hostname, self.os, self.scope,
-                                                                                   self.type, self.ip, self.nat, self.datastore)
+        return "Hostname: {}\nOS: {}\nScope: {}\nType: {}\nIP: {}\nNat: {}\nDatasotre: {}\nApplication: {}".format(self.hostname, self.os, self.scope,
+                                                                                   self.type, self.ip, self.nat, self.datastore,self.application)
 
 
 class base():
@@ -27,7 +28,7 @@ class base():
     def connection_set(self):
         self.connection = sqlite3.connect("mydb.db")
         self.cursor = self.connection.cursor()
-        query = "create table if not exists servers (hostname TEXT UNIQUE,os TEXT,scope TEXT, type TEXT,ip INT UNIQUE, nat INT UNIQUE, datastore TEXT)"
+        query = "create table if not exists servers (hostname TEXT UNIQUE,os TEXT,scope TEXT, type TEXT,ip INT UNIQUE, nat INT UNIQUE, datastore TEXT, application TEXT)"
         self.cursor.execute(query)
         self.connection.commit()
 
@@ -45,7 +46,7 @@ class base():
         else:
 
             for i in servers:
-                Servers = server(i[0], i[1], i[2], i[3], i[4], i[5], i[6])
+                Servers = server(i[0], i[1], i[2], i[3], i[4], i[5], i[6],i[7])
                 print(Servers)
 
     def server_query(self, hostname):
@@ -58,12 +59,14 @@ class base():
             print("Host n'existe pas.")
 
         else:
-            Servers = server(servers[0][0], servers[0][1], servers[0][2], servers[0][3], servers[0][4], servers[0][5], servers[0][6])
+            Servers = server(servers[0][0], servers[0][1], servers[0][2], servers[0][3], servers[0][4], servers[0][5], servers[0][6],
+                             servers[0][7])
             print(Servers)
 
     def server_add(self, server):
-        query = "insert into servers values(?,?,?,?,?,?,?)"
-        self.cursor.execute(query, (server.hostname, server.os, server.scope, server.type, server.ip, server.nat,server.datastore))
+        query = "insert into servers values(?,?,?,?,?,?,?,?)"
+        self.cursor.execute(query, (server.hostname, server.os, server.scope, server.type, server.ip, server.nat,server.datastore,
+                                    server.application))
         self.connection.commit()
 
     def server_delete(self, hostname):
