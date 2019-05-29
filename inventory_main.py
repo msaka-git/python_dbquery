@@ -1,6 +1,6 @@
-from proje import *
+from python_dbquery.db_operations import *
 from xlsxwriter.workbook import Workbook
-import os,sqlite3
+import os,sqlite3,time
 
 def menu():
 

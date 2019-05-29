@@ -1,8 +1,6 @@
-import time
+import time, shutil
 import csv
 import sqlite3, os
-from python_dbquery import db_update_mpc
-import matplotlib.pyplot as plt
 from pathlib import Path
 
 from python_dbquery.db_update_mpc import excel_format
@@ -83,3 +81,7 @@ base.set_null()
 
 base.connection_cut()
 
+os.remove('servers.csv')
+os.remove('servers.xlsx')
+
+shutil.move('mydb.db', '../mydb.db')

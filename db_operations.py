@@ -1,6 +1,4 @@
 import sqlite3
-import time
-import os
 import matplotlib.pyplot as plt
 
 

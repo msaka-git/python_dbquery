@@ -1,0 +1,38 @@
+# Author: Mufit SAKA
+# Developped since 2018
+# Version: 1.2
+# Published: 29/05/2019
+# Limited Brains Co.
+
+This is an inventory query programme to list, modify, add, extract into excel file servers of Manpower client.
+
+
+### BUILT-IN MODULES ###
+Following built-in modules are needed to run script:
+
+pandas
+xlrd
+xlsxwriter
+time, shutil
+csv
+sqlite3, os
+pathlib import Path
+sqlite3
+matplotlib.pyplot
+xlsxwriter
+
+Customized modules are already in python_dbquery and db_update_mpc folders.
+
+### UPDATE ####
+You can download the inventory file from PB Matrix then update database with dbupdate.py script.
+To update database download the excel file which starts with MPW_Inventory_xxxxxx.xlsx and rename it to MPW_inventaire.xlsx
+File must be under db_update_mpc directory. Then run dbupdate.py
+
+Excel_format.py is the module responsible to parse inventory file created by PO. This prepare the file which allow us to update sqlite database.
+
+
+### RUN MAIN SCRIPT ###
+inventory_main.py is the main script.
+db_operations.py is the module interacts with database and send informations to inventory_main.py.
+
+
