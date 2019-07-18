@@ -45,6 +45,7 @@ class base():
 
             for i in servers:
                 Servers = server(i[0], i[1], i[2], i[3], i[4], i[5], i[6],i[7])
+                print("\n*****************************\n")
                 print(Servers)
 
     def server_query(self, hostname):
